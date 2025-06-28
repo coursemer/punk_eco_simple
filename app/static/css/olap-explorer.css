@@ -1,0 +1,1118 @@
+/* ===========================================
+   EXPLORATEUR OLAP - TABLEAU DE BORD ÉCONOMIQUE DU MAROC
+   Styles pour l'interface d'analyse OLAP interactive
+   =========================================== */
+
+:root {
+    /* Couleurs principales */
+    --olap-primary: #00c2cb;
+    --olap-primary-hover: #00a8b0;
+    --olap-primary-light: rgba(0, 194, 203, 0.1);
+    --olap-secondary: #6c63ff;
+    --olap-secondary-light: rgba(108, 99, 255, 0.1);
+    --olap-success: #51cf66;
+    --olap-success-light: rgba(81, 207, 102, 0.1);
+    --olap-danger: #ff6b6b;
+    --olap-danger-light: rgba(255, 107, 107, 0.1);
+    --olap-warning: #ffd43b;
+    --olap-warning-light: rgba(255, 212, 59, 0.1);
+    
+    /* Couleurs de fond */
+    --olap-bg: #1e1e2e;
+    --olap-bg-light: #27293d;
+    --olap-bg-lighter: #2d2f45;
+    --olap-bg-dark: #191a2a;
+    
+    /* Couleurs de texte */
+    --olap-text: #e0e0e0;
+    --olap-text-light: #8a8ea8;
+    --olap-text-lighter: #6c7293;
+    
+    /* Bordures */
+    --olap-border: #2d2f45;
+    --olap-border-light: #3a3d5a;
+    
+    /* Ombres */
+    --olap-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    --olap-shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.2);
+    --olap-shadow-inset: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+    
+    /* Espacements */
+    --olap-spacing: 15px;
+    --olap-spacing-sm: 10px;
+    --olap-spacing-lg: 20px;
+    --olap-spacing-xl: 30px;
+    
+    /* Rayons de bordure */
+    --olap-radius: 12px;
+    --olap-radius-sm: 6px;
+    --olap-radius-lg: 16px;
+    
+    /* Transitions */
+    --olap-transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --olap-transition-fast: all 0.15s ease;
+    
+    /* Z-index */
+    --z-tooltip: 1000;
+    --z-fixed: 100;
+    --z-modal: 1000;
+}
+
+/* ===========================================
+   STRUCTURE PRINCIPALE
+   =========================================== */
+
+.olap-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 600px;
+    background-color: var(--olap-bg);
+    border-radius: var(--olap-radius);
+    overflow: hidden;
+    box-shadow: var(--olap-shadow);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    transition: var(--olap-transition);
+    position: relative;
+}
+
+.olap-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--olap-spacing-sm) var(--olap-spacing);
+    background-color: var(--olap-bg-light);
+    border-bottom: 1px solid var(--olap-border);
+    position: relative;
+    z-index: var(--z-fixed);
+    transition: var(--olap-transition);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.olap-content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    transition: var(--olap-transition);
+    background: linear-gradient(145deg, var(--olap-bg-dark) 0%, var(--olap-bg) 100%);
+}
+
+/* ===========================================
+   BARRE D'OUTILS
+   =========================================== */
+
+.view-controls {
+    display: flex;
+    gap: var(--olap-spacing-sm);
+    flex-wrap: wrap;
+}
+
+.olap-actions {
+    display: flex;
+    gap: var(--olap-spacing-sm);
+}
+
+/* ===========================================
+   BARRE LATÉRALE
+   =========================================== */
+
+.olap-sidebar {
+    width: 300px;
+    min-width: 250px;
+    background-color: var(--olap-bg-light);
+    border-right: 1px solid var(--olap-border);
+    padding: var(--olap-spacing);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    transition: var(--olap-transition);
+    position: relative;
+    z-index: 1;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    
+    /* Scrollbar styling */
+    scrollbar-width: thin;
+    scrollbar-color: var(--olap-primary) var(--olap-bg-light);
+}
+
+.olap-sidebar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.olap-sidebar::-webkit-scrollbar-track {
+    background: var(--olap-bg-light);
+}
+
+.olap-sidebar::-webkit-scrollbar-thumb {
+    background-color: var(--olap-primary);
+    border-radius: 3px;
+}
+
+.olap-sidebar.collapsed {
+    transform: translateX(-100%);
+    position: absolute;
+    height: 100%;
+    z-index: 100;
+}
+
+.sidebar-toggle {
+    display: none;
+    position: absolute;
+    right: -12px;
+    top: 20px;
+    background: var(--olap-primary);
+    color: white;
+    border: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 101;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--olap-transition);
+}
+
+.sidebar-toggle:hover {
+    background: var(--olap-primary-hover);
+    transform: scale(1.1);
+    box-shadow: 0 0 0 2px var(--olap-primary-light);
+}
+
+.olap-dimensions,
+.olap-measures,
+.olap-filters {
+    background-color: var(--olap-bg);
+    border-radius: var(--olap-radius-sm);
+    padding: var(--olap-spacing);
+    box-shadow: var(--olap-shadow-sm);
+}
+
+.olap-sidebar h4 {
+    color: var(--olap-text);
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0 0 var(--olap-spacing-sm) 0;
+    padding-bottom: var(--olap-spacing-sm);
+    border-bottom: 1px solid var(--olap-border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ===========================================
+   DIMENSIONS ET MESURES
+   =========================================== */
+
+.dimension-item {
+    background-color: var(--olap-bg-lighter);
+    border-radius: var(--olap-radius-sm);
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    cursor: move;
+    transition: all 0.2s ease;
+    border-left: 3px solid var(--olap-primary);
+}
+
+.dimension-item:hover {
+    background-color: rgba(0, 194, 203, 0.1);
+    transform: translateX(3px);
+}
+
+.dimension-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dimension-name {
+    flex: 1;
+    color: var(--olap-text);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.dimension-actions {
+    display: flex;
+    gap: 4px;
+}
+
+.dimension-levels {
+    margin-top: 8px;
+    padding-left: 20px;
+    border-left: 1px dashed var(--olap-border-light);
+}
+
+.level-item {
+    display: flex;
+    align-items: center;
+    padding: 6px 0;
+    color: var(--olap-text-light);
+    font-size: 0.85rem;
+}
+
+.level-item .level-name {
+    flex: 1;
+}
+
+.level-actions {
+    display: flex;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.level-item:hover .level-actions {
+    opacity: 1;
+}
+
+/* Styles pour les mesures */
+.measure-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--olap-border);
+}
+
+.measure-item:last-child {
+    border-bottom: none;
+}
+
+.measure-item .form-check {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    margin: 0;
+}
+
+.measure-item .form-check-label {
+    color: var(--olap-text);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.measure-aggregation {
+    width: 100px;
+    margin-left: 10px;
+    font-size: 0.8rem;
+    padding: 2px 6px;
+    background-color: var(--olap-bg-lighter);
+    border: 1px solid var(--olap-border);
+    border-radius: 3px;
+    color: var(--olap-text);
+}
+
+/* ===========================================
+   ZONE PRINCIPALE DE VISUALISATION
+   =========================================== */
+
+.olap-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+.olap-dropzones {
+    display: flex;
+    gap: var(--olap-spacing);
+    padding: var(--olap-spacing);
+    background-color: var(--olap-bg-light);
+    border-bottom: 1px solid var(--olap-border);
+}
+
+.dropzone {
+    flex: 1;
+    background-color: var(--olap-bg);
+    border: 2px dashed var(--olap-border);
+    border-radius: var(--olap-radius-sm);
+    padding: var(--olap-spacing-sm) var(--olap-spacing);
+    min-height: 60px;
+    transition: all 0.2s ease;
+}
+
+.dropzone.active {
+    border-color: var(--olap-primary);
+    background-color: rgba(0, 194, 203, 0.05);
+}
+
+.dropzone-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--olap-text-light);
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.dropzone-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    min-height: 30px;
+}
+
+/* ===========================================
+   VUES DE RÉSULTATS
+   =========================================== */
+
+.olap-view {
+    flex: 1;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    padding: var(--olap-spacing);
+}
+
+.olap-view.active {
+    display: flex;
+}
+
+/* Vue tableau croisé */
+.pivot-controls {
+    margin-bottom: var(--olap-spacing);
+    padding: var(--olap-spacing-sm);
+    background-color: var(--olap-bg-light);
+    border-radius: var(--olap-radius-sm);
+}
+
+.pivot-table {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: var(--olap-bg-light);
+    border-radius: var(--olap-radius-sm);
+    border: 1px solid var(--olap-border);
+}
+
+/* Vue graphique */
+.chart-controls {
+    margin-bottom: var(--olap-spacing);
+}
+
+.chart-container {
+    flex: 1;
+    min-height: 300px;
+    position: relative;
+}
+
+/* Vue tableau */
+.table-responsive {
+    flex: 1;
+    overflow: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.table th,
+.table td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--olap-border);
+}
+
+.table th {
+    background-color: var(--olap-bg-light);
+    color: var(--olap-text);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(0, 194, 203, 0.05);
+}
+
+/* ===========================================
+   BOUTONS ET FORMULAIRES
+   =========================================== */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    border: 1px solid transparent;
+    border-radius: var(--olap-radius-sm);
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-sm {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+}
+
+.btn-primary {
+    background-color: var(--olap-primary);
+    color: #0a0e17;
+}
+
+.btn-primary:hover {
+    background-color: var(--olap-primary-hover);
+    transform: translateY(-1px);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border-color: var(--olap-border);
+    color: var(--olap-text);
+}
+
+.btn-outline:hover {
+    background-color: var(--olap-bg-lighter);
+    border-color: var(--olap-primary);
+    color: var(--olap-primary);
+}
+
+.btn-outline.active {
+    background-color: rgba(0, 194, 203, 0.1);
+    border-color: var(--olap-primary);
+    color: var(--olap-primary);
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    color: var(--olap-text-light);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.btn-icon:hover {
+    color: var(--olap-primary);
+    background-color: rgba(0, 194, 203, 0.1);
+}
+
+/* ===========================================
+   FORMULAIRES ET CONTROLES
+   =========================================== */
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--olap-text);
+    background-color: var(--olap-bg);
+    background-clip: padding-box;
+    border: 1px solid var(--olap-border);
+    border-radius: var(--olap-radius-sm);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus {
+    border-color: var(--olap-primary);
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 194, 203, 0.25);
+}
+
+.form-control-sm {
+    padding: 4px 8px;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-check {
+    display: block;
+    min-height: 1.5rem;
+    padding-left: 1.5em;
+    margin-bottom: 0.125rem;
+}
+
+.form-check-input {
+    width: 1em;
+    height: 1em;
+    margin-top: 0.25em;
+    vertical-align: top;
+    background-color: var(--olap-bg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: 1px solid var(--olap-border);
+    /* Force background colors in print */
+    -webkit-print-color-adjust: exact !important; /* Chrome, Safari */
+    print-color-adjust: exact !important; /* Standard */
+    cursor: pointer;
+}
+
+.form-check-input:checked {
+    background-color: var(--olap-primary);
+    -webkit-print-color-adjust: exact !important; /* Chrome, Safari */
+    print-color-adjust: exact !important; /* Standard */
+    border-color: var(--olap-primary);
+}
+
+.form-check-input:focus {
+    border-color: var(--olap-primary);
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 194, 203, 0.25);
+}
+
+/* ===========================================
+   ÉTATS ET ANIMATIONS
+   =========================================== */
+
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(30, 30, 46, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    color: var(--olap-text);
+    font-size: 1.1rem;
+    gap: 15px;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0, 194, 203, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--olap-primary);
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ===========================================
+   RÉACTIVITÉ
+   =========================================== */
+
+@media (max-width: 1200px) {
+    .olap-sidebar {
+        width: 260px;
+    }
+}
+
+@media (max-width: 992px) {
+    .olap-content {
+        flex-direction: column;
+    }
+    
+    .olap-sidebar {
+        width: 100%;
+        max-height: 300px;
+        border-right: none;
+        border-bottom: 1px solid var(--olap-border);
+    }
+    
+    .olap-dropzones {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    .olap-toolbar {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+    
+    .view-controls {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 5px;
+    }
+    
+    .olap-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}
+
+@media print {
+    /* Hide UI elements not needed for print */
+    .olap-toolbar,
+    .olap-sidebar,
+    .pivot-controls,
+    .chart-controls,
+    .table-controls,
+    .sidebar-toggle,
+    .no-print {
+        display: none !important;
+    }
+    
+    /* Reset container styles for print */
+    .olap-container {
+        height: auto !important;
+        overflow: visible !important;
+        box-shadow: none !important;
+        background: none !important;
+    }
+    
+    /* Adjust main content area */
+    .olap-main {
+        margin-left: 0 !important;
+        width: 100% !important;
+        padding: 0 !important;
+    }
+    
+    /* Ensure views are visible and properly formatted */
+    .olap-view {
+        display: block !important;
+        page-break-inside: avoid;
+        height: auto !important;
+        opacity: 1 !important;
+    }
+    
+    /* Improve table printing */
+    table {
+        width: 100% !important;
+        border-collapse: collapse;
+        font-size: 11pt;
+    }
+    
+    th, td {
+        border: 1px solid #ddd !important;
+        padding: 6px 8px !important;
+        background-color: transparent !important;
+    }
+    
+    th {
+        background-color: #f5f5f5 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    /* Ensure charts are visible in print */
+    .chart-container {
+        height: auto !important;
+        min-height: 400px;
+    }
+    
+    /* Print URLs after links */
+    a[href]:after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+        font-weight: normal;
+        color: #666;
+    }
+    
+    /* Force print background colors */
+    * {
+        -webkit-print-color-adjust: exact !important; /* Chrome, Safari */
+        print-color-adjust: exact !important; /* Standard */
+    }
+    
+    /* Styles spécifiques pour l'impression */
+    /* Les styles spécifiques à l'impression peuvent être ajoutés ici si nécessaire */
+    
+    /* Add page breaks where needed */
+    .page-break {
+        page-break-before: always;
+    }
+    
+    /* Hide interactive elements */
+    .btn, button, .form-control, .dropdown, .pagination {
+        display: none !important;
+    }
+    
+    /* Print header and footer */
+    @page {
+        size: auto;
+        margin: 1cm;
+        @top-center {
+            content: "Tableau de Bord Économique du Maroc";
+            font-size: 12pt;
+            color: #666;
+        }
+        @bottom-right {
+            content: "Page " counter(page) " sur " counter(pages);
+            font-size: 10pt;
+            color: #999;
+        }
+    }
+}
+
+/* ===========================================
+   UTILITAIRES
+   =========================================== */
+
+.mt-1 { margin-top: 0.25rem !important; }
+.mt-2 { margin-top: 0.5rem !important; }
+.mt-3 { margin-top: 1rem !important; }
+.mb-1 { margin-bottom: 0.25rem !important; }
+.mb-2 { margin-bottom: 0.5rem !important; }
+.mb-3 { margin-bottom: 1rem !important; }
+.ml-1 { margin-left: 0.25rem !important; }
+.ml-2 { margin-left: 0.5rem !important; }
+.ml-3 { margin-left: 1rem !important; }
+.mr-1 { margin-right: 0.25rem !important; }
+.mr-2 { margin-right: 0.5rem !important; }
+.mr-3 { margin-right: 1rem !important; }
+
+.pt-1 { padding-top: 0.25rem !important; }
+.pt-2 { padding-top: 0.5rem !important; }
+.pt-3 { padding-top: 1rem !important; }
+.pb-1 { padding-bottom: 0.25rem !important; }
+.pb-2 { padding-bottom: 0.5rem !important; }
+.pb-3 { padding-bottom: 1rem !important; }
+.pl-1 { padding-left: 0.25rem !important; }
+.pl-2 { padding-left: 0.5rem !important; }
+.pl-3 { padding-left: 1rem !important; }
+.pr-1 { padding-right: 0.25rem !important; }
+.pr-2 { padding-right: 0.5rem !important; }
+.pr-3 { padding-right: 1rem !important; }
+
+.text-center { text-align: center !important; }
+.text-right { text-align: right !important; }
+.text-left { text-align: left !important; }
+.text-muted { color: var(--olap-text-light) !important; }
+
+.d-none { display: none !important; }
+.d-flex { display: flex !important; }
+.flex-column { flex-direction: column !important; }
+.flex-row { flex-direction: row !important; }
+.justify-content-between { justify-content: space-between !important; }
+.justify-content-center { justify-content: center !important; }
+.align-items-center { align-items: center !important; }
+.flex-fill { flex: 1 1 auto !important; }
+.olap-table td {
+    padding: 10px 15px;
+    text-align: left;
+    border: 1px solid var(--border-color);
+}
+
+.olap-table th {
+    background-color: var(--bg-darker);
+    font-weight: 600;
+    color: var(--text-primary);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.olap-table tbody tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.olap-table tbody tr:hover {
+    background-color: rgba(0, 255, 200, 0.05);
+}
+
+/* Indicateur de chargement */
+.olap-loading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    min-height: 300px;
+    background: rgba(30, 30, 46, 0.8);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+    transition: var(--olap-transition);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.olap-loading.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.olap-loading .spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid var(--olap-primary-light);
+    border-top: 4px solid var(--olap-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: var(--olap-spacing);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.olap-loading p {
+    color: var(--olap-text);
+    font-size: 1.1rem;
+    margin-top: var(--olap-spacing);
+    text-align: center;
+    max-width: 80%;
+    line-height: 1.5;
+}
+
+.olap-loading .progress {
+    width: 60%;
+    height: 6px;
+    background: var(--olap-bg-lighter);
+    border-radius: 3px;
+    margin-top: var(--olap-spacing);
+    overflow: hidden;
+}
+
+.olap-loading .progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--olap-primary), var(--olap-secondary));
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+/* Style pour les éléments déplaçables */
+.draggable-item {
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: move;
+    transition: all 0.2s ease;
+}
+
+.draggable-item:hover {
+    background-color: rgba(0, 255, 200, 0.1);
+    border-color: var(--accent-cyan);
+}
+
+.draggable-item .remove-btn {
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin-left: 4px;
+}
+
+.draggable-item .remove-btn:hover {
+    color: #ff4d4f;
+}
+
+/* Style pour les opérations OLAP */
+.olap-operations {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.operation-btn {
+    padding: 4px 10px;
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.operation-btn:hover {
+    background-color: var(--accent-cyan);
+    color: var(--bg-darker);
+    border-color: var(--accent-cyan);
+}
+
+/* Style pour les sélecteurs de niveau hiérarchique */
+.hierarchy-levels {
+    margin-top: 5px;
+    padding-left: 15px;
+    border-left: 2px solid var(--border-color);
+}
+
+.level-option {
+    display: flex;
+    align-items: center;
+    padding: 4px 0;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.level-option input[type="radio"] {
+    margin-right: 6px;
+}
+
+.level-option:hover {
+    color: var(--accent-cyan);
+}
+
+/* Style pour les indicateurs de mesure */
+.measures-list {
+    margin-top: 5px;
+}
+
+.measure-item {
+    display: flex;
+    align-items: center;
+    padding: 4px 0;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+/* Style pour les options d'agrégation */
+.aggregation-select {
+    margin-top: 5px;
+    width: 100%;
+    padding: 4px 8px;
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+}
+
+/* Style pour les onglets */
+.olap-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 15px;
+}
+
+.olap-tab {
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.olap-tab.active {
+    color: var(--accent-cyan);
+    border-bottom-color: var(--accent-cyan);
+}
+
+.olap-tab:hover:not(.active) {
+    color: var(--text-primary);
+    background-color: rgba(0, 255, 200, 0.05);
+}
+
+/* Style pour les cartes de visualisation */
+.visualization-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.visualization-card {
+    background-color: var(--bg-darker);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.visualization-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.visualization-header {
+    padding: 12px 15px;
+    background-color: var(--bg-dark);
+    border-bottom: 1px solid var(--border-color);
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.visualization-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.visualization-content {
+    padding: 15px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-secondary);
+}
+
+/* Réactivité */
+@media (max-width: 992px) {
+    .olap-content {
+        flex-direction: column;
+    }
+    
+    .olap-sidebar {
+        width: 100%;
+        max-height: 250px;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    .visualization-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .olap-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+    
+    .olap-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+    
+    .olap-operations {
+        justify-content: center;
+    }
+    
+    .operation-btn span {
+        display: none;
+    }
+}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Hors ligne | Punk Eco</title>
+    <meta name="description" content="Vous êtes actuellement hors ligne. Veuillez vérifier votre connexion Internet.">
+    
+    <!-- Polices -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #0a0e17;
+            --bg-light: #1a1f2e;
+            --text-light: #f8f9fa;
+            --accent-cyan: #00ffc8;
+            --accent-blue: #00a3ff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+            text-align: center;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .error-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-cyan);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+            color: #fff;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 255, 200, 0.2);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .network-status {
+            margin-top: 2rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.05);
+            display: none;
+        }
+        
+        .online .network-status {
+            display: block;
+            color: #00e676;
+            border: 1px solid rgba(0, 230, 118, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="error-icon">
+            <i class="fas fa-wifi-slash"></i>
+        </div>
+        <h1>Hors ligne</h1>
+        <p>Il semble que vous n'ayez pas de connexion Internet. Veuillez vérifier votre connexion et réessayer.</p>
+        <button onclick="window.location.reload()" class="btn">
+            <i class="fas fa-sync-alt" style="margin-right: 8px;"></i> Réessayer
+        </button>
+        
+        <div class="network-status">
+            <i class="fas fa-check-circle"></i> Connexion rétablie ! La page va se recharger automatiquement...
+        </div>
+    </div>
+
+    <script>
+        // Vérifier l'état de la connexion
+        function updateOnlineStatus() {
+            if (navigator.onLine) {
+                document.body.classList.add('online');
+                // Recharger la page après 2 secondes
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            } else {
+                document.body.classList.remove('online');
+            }
+        }
+
+        // Écouter les changements de connexion
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
+        
+        // Vérifier l'état initial
+        updateOnlineStatus();
+    </script>
+</body>
+</html>

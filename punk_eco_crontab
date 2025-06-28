@@ -1,0 +1,87 @@
+# Punk Eco - Tâches planifiées
+# Ce fichier contient les tâches planifiées pour l'application Punk Eco
+# Pour installer : crontab punk_eco_crontab
+
+# Définir le répertoire de travail
+CRON_DIR=/opt/punk_eco
+
+# Répertoire des logs
+LOG_DIR=/var/log/punk_eco
+
+# Configuration du shell
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# Envoyer les erreurs par email
+MAILTO=admin@punk-eco.ma
+
+# -------------------------------------------------------------------
+# Tâches de sauvegarde
+# -------------------------------------------------------------------
+
+# Sauvegarde complète de la base de données et des fichiers média tous les jours à minuit
+0 0 * * * root $CRON_DIR/backup.sh --db-only --no-cleanup >> $LOG_DIR/backup.log 2>&1
+
+# Nettoyage des anciennes sauvegardes tous les dimanches à 1h du matin
+0 1 * * 0 root $CRON_DIR/backup.sh --cleanup-only >> $LOG_DIR/cleanup.log 2>&1
+
+# -------------------------------------------------------------------
+# Tâches de surveillance
+# -------------------------------------------------------------------
+
+# Vérification de l'état des services toutes les 5 minutes
+*/5 * * * * root $CRON_DIR/monitoring.sh --all >> $LOG_DIR/monitoring.log 2>&1
+
+# Vérification de l'utilisation du disque toutes les heures
+0 * * * * root $CRON_DIR/monitoring.sh --disk --memory --cpu >> $LOG_DIR/health.log 2>&1
+
+# Vérification complète des services toutes les 6 heures
+0 */6 * * * root $CRON_DIR/monitoring.sh --containers --db --redis --web >> $LOG_DIR/full_check.log 2>&1
+
+# -------------------------------------------------------------------
+# Tâches de maintenance
+# -------------------------------------------------------------------
+
+# Nettoyage des logs tous les jours à 2h du matin
+0 2 * * * root find $LOG_DIR -name "*.log" -type f -mtime +30 -delete
+
+# Redémarrage des conteneurs tous les dimanches à 3h du matin pour appliquer les mises à jour
+0 3 * * 0 root cd $CRON_DIR && docker-compose -f docker-compose.yml -f docker-compose.prod.yml down && docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+
+# Mise à jour des images Docker tous les premiers du mois à 4h du matin
+0 4 1 * * root cd $CRON_DIR && docker-compose -f docker-compose.yml -f docker-compose.prod.yml pull
+
+# -------------------------------------------------------------------
+# Tâches spécifiques à l'application
+# -------------------------------------------------------------------
+
+# Planifier les tâches périodiques de l'application (ex: rapports quotidiens)
+0 5 * * * root cd $CRON_DIR && docker-compose -f docker-compose.yml -f docker-compose.prod.yml exec -T web flask scheduled-tasks daily
+
+# Planifier les tâches hebdomadaires (ex: rapports hebdomadaires)
+0 6 * * 1 root cd $CRON_DIR && docker-compose -f docker-compose.yml -f docker-compose.prod.yml exec -T web flask scheduled-tasks weekly
+
+# Planifier les tâches mensuelles (ex: rapports mensuels, facturation)
+0 7 1 * * root cd $CRON_DIR && docker-compose -f docker-compose.yml -f docker-compose.prod.yml exec -T web flask scheduled-tasks monthly
+
+# -------------------------------------------------------------------
+# Tâches de sécurité
+# -------------------------------------------------------------------
+
+# Mise à jour des certificats Let's Encrypt (vérification deux fois par jour)
+0 12,23 * * * root cd $CRON_DIR && docker-compose -f docker-compose.yml -f docker-compose.prod.yml run --rm certbot renew --quiet --deploy-hook "docker-compose -f docker-compose.yml -f docker-compose.prod.yml exec -T nginx nginx -s reload"
+
+# Analyse de sécurité des dépendances (une fois par semaine)
+0 4 * * 1 root cd $CRON_DIR && docker-compose -f docker-compose.yml -f docker-compose.prod.yml exec -T web safety check --full-report > $LOG_DIR/security_scan_$(date +\%Y\%m\%d).log 2>&1
+
+# -------------------------------------------------------------------
+# Tâches de sauvegarde externe (exemple avec S3)
+# -------------------------------------------------------------------
+# Téléversement des sauvegardes vers un stockage externe (ex: S3) tous les jours à 1h du matin
+# 0 1 * * * root /usr/local/bin/aws s3 sync /var/backups/punk_eco s3://punk-eco-backups/$(date +\%Y/\%m/\%d) --delete
+
+# -------------------------------------------------------------------
+# Tâches de surveillance avancée (optionnel)
+# -------------------------------------------------------------------
+# Exemple de surveillance avancée avec des outils comme Prometheus, Node Exporter, etc.
+# * * * * * root $CRON_DIR/monitoring/collect_metrics.sh >> $LOG_DIR/metrics.log 2>&1

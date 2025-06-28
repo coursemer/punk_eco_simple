@@ -1,0 +1,98 @@
+<header class="header" role="banner" data-theme="dark">
+    <div class="container">
+        <div class="header-content">
+            <!-- Logo -->
+            <div class="logo">
+                <a href="{{ url_for('main.index') }}" class="logo-link" aria-label="Retour à l'accueil">
+                    <h1 class="logo-text">PUNK ECO</h1>
+                    <div class="project-info">Tableau de Bord Économique - Entrepôt de Données</div>
+                </a>
+            </div>
+            
+            <!-- Bouton du menu mobile -->
+            <button class="mobile-menu-button" id="mobile-menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="main-navigation">
+                <span class="menu-icon"></span>
+                <span class="sr-only">Menu</span>
+            </button>
+            
+            <!-- Navigation principale -->
+            <nav id="main-navigation" class="main-nav" role="navigation" aria-label="Navigation principale">
+                <ul class="nav-menu" id="nav-links">
+                    <li class="nav-item">
+                        <a href="{{ url_for('main.index') }}" class="nav-link {% if request.endpoint == 'main.index' %}active{% endif %}" data-page="dashboard">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Tableau de Bord</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-page="analytics">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Analyses</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-page="explorer">
+                            <i class="fas fa-database"></i>
+                            <span>Explorateur</span>
+                        </a>
+                    </li>
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item mobile-only">
+                        <a href="{{ url_for('auth.logout') }}" class="nav-link" data-page="logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Déconnexion</span>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item mobile-only">
+                        <a href="{{ url_for('auth.login') }}" class="nav-link" data-page="login">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span>Connexion</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            
+            <!-- Contrôles du thème et utilisateur -->
+            <div class="header-controls">
+                <!-- Bouton de bascule du thème -->
+                <button class="theme-toggle" id="theme-toggle" aria-label="Changer de thème">
+                    <i class="fas fa-moon moon-icon"></i>
+                    <i class="fas fa-sun sun-icon"></i>
+                    <span class="sr-only">Changer de thème</span>
+                </button>
+                
+                {% if current_user.is_authenticated %}
+                <!-- Menu utilisateur (version desktop) -->
+                <div class="user-menu desktop-only">
+                    <div class="user-avatar">{{ current_user.username[0]|upper }}</div>
+                    <div class="user-info">
+                        <span class="user-name">{{ current_user.username }}</span>
+                        <a href="{{ url_for('auth.logout') }}" class="user-logout" title="Déconnexion" aria-label="Déconnexion">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </a>
+                    </div>
+                </div>
+                {% else %}
+                <!-- Boutons d'authentification (version desktop) -->
+                <div class="auth-buttons desktop-only">
+                    <a href="{{ url_for('auth.login') }}" class="btn btn-sm btn-outline">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Connexion</span>
+                    </a>
+                    <a href="{{ url_for('auth.register') }}" class="btn btn-sm btn-primary">
+                        <i class="fas fa-user-plus"></i>
+                        <span>S'inscrire</span>
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Barre de progression de défilement -->
+    <div class="scroll-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="scroll-progress-bar"></div>
+    </div>
+</header>

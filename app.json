@@ -1,0 +1,81 @@
+{
+  "name": "Punk Eco - Moroccan Economy Dashboard",
+  "description": "Tableau de bord pour le suivi des indicateurs économiques marocains",
+  "repository": "https://github.com/punk-eco/moroccan-economy-dashboard",
+  "logo": "https://raw.githubusercontent.com/punk-eco/moroccan-economy-dashboard/main/static/img/logo.png",
+  "keywords": ["python", "flask", "dashboard", "economy", "morocco"],
+  "env": {
+    "FLASK_APP": {
+      "description": "Le point d'entrée de l'application Flask",
+      "value": "wsgi.py"
+    },
+    "FLASK_ENV": {
+      "description": "Environnement d'exécution",
+      "value": "production"
+    },
+    "SECRET_KEY": {
+      "description": "Clé secrète pour les sessions et les tokens CSRF",
+      "generator": "secret"
+    },
+    "DATABASE_URL": {
+      "description": "URL de la base de données",
+      "value": "sqlite:///instance/app.db"
+    },
+    "MAIL_SERVER": {
+      "description": "Serveur SMTP pour l'envoi d'emails",
+      "value": "smtp.sendgrid.net"
+    },
+    "MAIL_PORT": {
+      "description": "Port du serveur SMTP",
+      "value": "587"
+    },
+    "MAIL_USE_TLS": {
+      "description": "Utiliser TLS pour le serveur SMTP",
+      "value": "true"
+    },
+    "MAIL_USE_SSL": {
+      "description": "Utiliser SSL pour le serveur SMTP",
+      "value": "false"
+    },
+    "MAIL_USERNAME": {
+      "description": "Nom d'utilisateur SMTP (généralement 'apikey' pour SendGrid)",
+      "value": "apikey"
+    },
+    "MAIL_PASSWORD": {
+      "description": "Mot de passe SMTP (clé API pour SendGrid)",
+      "required": true
+    },
+    "MAIL_DEFAULT_SENDER": {
+      "description": "Adresse email de l'expéditeur par défaut",
+      "value": "no-reply@punk-eco.ma"
+    },
+    "CORS_ORIGINS": {
+      "description": "Origines CORS autorisées (séparées par des virgules)",
+      "value": "*"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql:hobby-dev",
+      "as": "DATABASE"
+    },
+    {
+      "plan": "sendgrid:starter"
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "scripts": {
+    "postdeploy": "flask db upgrade"
+  }
+}
+      

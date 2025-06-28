@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Fichiers et dossiers à ignorer
+Disallow: /admin/
+Disallow: /api/
+Disallow: /static/
+Disallow: /templates/
+
+# Sitemap
+Sitemap: https://votre-domaine.com/sitemap.xml

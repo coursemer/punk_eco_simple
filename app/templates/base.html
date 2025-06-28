@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0a0e17">
+    <meta name="description" content="Plateforme d'analyse économique et financière du Maroc - Tableau de bord interactif avec indicateurs clés et visualisations de données">
+    <meta name="robots" content="index, follow">
+    <meta name="keywords" content="économie, données, analyse, PIB, chômage, exportations, importations, Maroc, indicateurs économiques, finances, marché, statistiques">
+    <meta name="author" content="Punk Eco">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.base_url }}">
+    <meta property="og:title" content="{% block og_title %}Punk Eco - Tableau de bord économique du Maroc{% endblock %}">
+    <meta property="og:description" content="Analyse économique et financière du Maroc avec des indicateurs clés et des visualisations de données interactives.">
+    <meta property="og:image" content="{{ url_for('static', filename='img/og-image.jpg', _external=True) }}">
+    <meta property="og:site_name" content="Punk Eco">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ request.base_url }}">
+    <meta name="twitter:title" content="{% block twitter_title %}Punk Eco - Tableau de bord économique du Maroc{% endblock %}">
+    <meta name="twitter:description" content="Analyse économique et financière du Maroc avec des indicateurs clés et des visualisations de données interactives.">
+    <meta name="twitter:image" content="{{ url_for('static', filename='img/og-image.jpg', _external=True) }}">
+    <meta name="twitter:creator" content="@punkeco">
+    
+    <!-- Balises structurées Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Punk Eco",
+        "url": "{{ request.url_root | safe }}",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "{{ request.url_root | safe }}recherche?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        },
+        "description": "Plateforme d'analyse économique et financière du Maroc avec des indicateurs clés et des visualisations de données interactives.",
+        "publisher": {
+            "@type": "Organization",
+            "name": "Punk Eco",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "{{ url_for('static', filename='img/logo.png', _external=True) }}",
+                "width": "600",
+                "height": "60"
+            }
+        },
+        "sameAs": [
+            "https://twitter.com/punkeco",
+            "https://www.linkedin.com/company/punkeco",
+            "https://github.com/punkeco"
+        ]
+    }
+    </script>
+    
+    <!-- Balise pour les données structurées de la page d'accueil -->
+    {% if request.path == '/' %}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Tableau de bord économique du Maroc | Punk Eco",
+        "description": "Analyse économique et financière du Maroc avec des indicateurs clés et des visualisations de données interactives.",
+        "url": "{{ request.url | safe }}",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "{{ request.url | safe }}"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Punk Eco",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "{{ url_for('static', filename='img/logo.png', _external=True) }}"
+            }
+        },
+        "inLanguage": "fr",
+        "datePublished": "2023-01-01",
+        "dateModified": "{{ now.strftime('%Y-%m-%d') }}",
+        "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "{{ url_for('static', filename='img/og-image.jpg', _external=True) }}",
+            "width": "1200",
+            "height": "630"
+        },
+        "isPartOf": {
+            "@type": "WebSite",
+            "url": "{{ request.url_root | safe }}",
+            "name": "Punk Eco"
+        }
+    }
+    </script>
+    {% endif %}
+    
+    <title>{% block title %}Punk Eco - Tableau de bord économique du Maroc{% endblock %}</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+    
+    <!-- Préchargement des polices -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Préchargement des polices critiques -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    </noscript>
+    
+    <!-- CSS critique -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+    
+    <!-- CSS secondaire (chargé de manière non bloquante) -->
+    <link rel="preload" href="{{ url_for('static', filename='css/components.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/pages.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/footer.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- CSS non critique (chargé de manière asynchrone) -->
+    <link rel="preload" href="{{ url_for('static', filename='css/styles.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ url_for('static', filename='css/custom.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- Fallback pour les navigateurs sans JavaScript -->
+    <noscript>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/pages.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+    </noscript>
+    
+    {% block extra_css %}{% endblock %}
+    
+    <!-- Scripts -->
+    <script>
+    // Amélioration du chargement des polices et des transitions
+    document.documentElement.classList.add('js');
+    
+    // État initial - masquer le contenu pendant le chargement
+    document.documentElement.classList.add('js-loading');
+    
+    // Fonction pour marquer la page comme chargée
+    function markPageAsLoaded() {
+        // Marquer que le DOM est chargé
+        document.documentElement.classList.add('dom-loaded');
+        
+        // Vérifier si les polices sont déjà chargées
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(handleFontsLoaded);
+        } else {
+            // Fallback pour les navigateurs qui ne supportent pas FontFaceSet
+            setTimeout(handleFontsLoaded, 300);
+        }
+        
+        // Supprimer les écouteurs après la première exécution
+        window.removeEventListener('load', markPageAsLoaded);
+        document.removeEventListener('DOMContentLoaded', markPageAsLoaded);
+    }
+    
+    // Gestion du chargement des polices
+    function handleFontsLoaded() {
+        document.documentElement.classList.add('fonts-loaded');
+        
+        // Une fois tout chargé, retirer la classe de chargement
+        setTimeout(function() {
+            document.documentElement.classList.add('page-loaded');
+            document.documentElement.classList.remove('js-loading');
+            
+            // Activer les animations après un court délai
+            setTimeout(function() {
+                document.documentElement.classList.add('animations-ready');
+            }, 50);
+        }, 100);
+    }
+    
+    // Marquer la page comme chargée dès que possible
+    if (document.readyState === 'loading') {
+        // Le DOM n'est pas encore complètement chargé
+        document.addEventListener('DOMContentLoaded', markPageAsLoaded);
+    } else {
+        // `DOMContentLoaded` a déjà été déclenché
+        markPageAsLoaded();
+    }
+    
+    // Gestion du chargement des CSS asynchrones pour les navigateurs qui ne supportent pas onload
+    (function() {
+        var links = document.querySelectorAll('link[rel="preload"][as="style"]');
+        links.forEach(function(link) {
+            link.onload = function() {
+                this.onload = null;
+                this.rel = 'stylesheet';
+            };
+        });
+    })();
+    
+    // Gestion des transitions entre les pages
+    document.addEventListener('DOMContentLoaded', function() {
+        // Ajouter une classe de transition pour les liens internes
+        document.body.addEventListener('click', function(e) {
+            // Vérifier si le clic est sur un lien interne qui n'a pas la classe 'no-transition'
+            var target = e.target.closest('a:not(.no-transition)');
+            if (target && target.href && target.hostname === window.location.hostname) {
+                // Ne pas interrompre les téléchargements ou les liens avec des cibles spéciales
+                if (target.download || target.target === '_blank' || target.hasAttribute('data-no-transition')) {
+                    return true;
+                }
+                
+                e.preventDefault();
+                
+                // Ajouter la classe de transition de sortie
+                document.body.classList.add('page-transition-out');
+                
+                // Attendre la fin de l'animation avant de changer de page
+                setTimeout(function() {
+                    window.location.href = target.href;
+                }, 400);
+                
+                return false;
+            }
+        });
+    });
+    
+    // Gestion du bouton de retour en haut de page
+    window.addEventListener('scroll', function() {
+        var scrollBtn = document.querySelector('.scroll-to-top');
+        if (scrollBtn) {
+            if (window.pageYOffset > 300) {
+                scrollBtn.classList.add('show');
+            } else {
+                scrollBtn.classList.remove('show');
+            }
+        }
+    });
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+    
+    <!-- Enregistrement du Service Worker -->
+    <script>
+    // Vérifier si le navigateur supporte les Service Workers
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('{{ url_for("static", filename="js/service-worker.js") }}')
+                .then(function(registration) {
+                    console.log('ServiceWorker enregistré avec succès avec le scope : ', registration.scope);
+                    
+                    // Vérifier les mises à jour
+                    registration.update().then(() => {
+                        console.log('Vérification des mises à jour du Service Worker');
+                    });
+                    
+                    // Gérer les mises à jour du Service Worker
+                    registration.addEventListener('updatefound', () => {
+                        const newWorker = registration.installing;
+                        console.log('Nouveau Service Worker en cours d\'installation');
+                        
+                        newWorker.addEventListener('statechange', () => {
+                            console.log('Nouvel état du Service Worker :', newWorker.state);
+                            
+                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                // Nouvelle version disponible
+                                console.log('Nouvelle version disponible !');
+                                // Ici, vous pourriez afficher un bouton pour forcer la mise à jour
+                                const updateButton = document.createElement('button');
+                                updateButton.textContent = 'Mettre à jour l\'application';
+                                updateButton.style.position = 'fixed';
+                                updateButton.style.bottom = '20px';
+                                updateButton.style.left = '50%';
+                                updateButton.style.transform = 'translateX(-50%)';
+                                updateButton.style.padding = '10px 20px';
+                                updateButton.style.background = 'var(--accent-cyan)';
+                                updateButton.style.color = 'var(--bg-dark)';
+                                updateButton.style.border = 'none';
+                                updateButton.style.borderRadius = '20px';
+                                updateButton.style.cursor = 'pointer';
+                                updateButton.style.zIndex = '9999';
+                                updateButton.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.2)';
+                                
+                                updateButton.addEventListener('click', () => {
+                                    // Envoyer un message au Service Worker pour forcer l'activation
+                                    newWorker.postMessage({ type: 'SKIP_WAITING' });
+                                    window.location.reload();
+                                });
+                                
+                                document.body.appendChild(updateButton);
+                                
+                                // Supprimer le bouton après 30 secondes
+                                setTimeout(() => {
+                                    if (document.body.contains(updateButton)) {
+                                        document.body.removeChild(updateButton);
+                                    }
+                                }, 30000);
+                            }
+                        });
+                    });
+                })
+                .catch(function(error) {
+                    console.log('Échec de l\'enregistrement du ServiceWorker : ', error);
+                });
+                
+            // Écouter le contrôleur change pour gérer les mises à jour
+            let refreshing = false;
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+                if (!refreshing) {
+                    window.location.reload();
+                    refreshing = true;
+                }
+            });
+        });
+    }
+    </script>
+    <script>
+    // Gestion de l'indicateur de chargement
+    document.addEventListener('DOMContentLoaded', function() {
+        const loadingIndicator = document.getElementById('loading-indicator');
+        
+        // Afficher l'indicateur lors du chargement d'une nouvelle page
+        window.addEventListener('beforeunload', function() {
+            loadingIndicator.classList.add('active');
+        });
+        
+        // Cacher l'indicateur une fois la page chargée
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                loadingIndicator.classList.remove('active');
+            }, 300);
+        });
+        
+        // Gestion des erreurs
+        window.addEventListener('error', function() {
+            loadingIndicator.classList.remove('active');
+        });
+    });
+    </script>
+    {% block extra_js %}{% endblock %}
+</head>
+<body>
+    <!-- Indicateur de chargement -->
+    <div id="loading-indicator" class="loading-indicator"></div>
+    
+    <!-- Fond matriciel -->
+    <div id="matrix" class="matrix-bg"></div>
+    
+    <!-- Inclusion du header -->
+    {% include 'components/header.html' %}
+    
+    <!-- Conteneur principal avec transition -->
+    <div id="page-content" class="page-transition">
+    
+        <!-- Contenu principal -->
+        <main id="main-content" role="main">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="alerts-container">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}" role="alert">
+                                {{ message }}
+                                <button type="button" class="alert-close" aria-label="Fermer">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            
+            {% block content %}{% endblock %}
+        </main>
+        
+        <!-- Pied de page -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-brand">
+                        <span class="logo-icon">PE</span>
+                        <span class="logo-text">Punk Eco</span>
+                    </div>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">À propos</a>
+                        <a href="#" class="footer-link">Documentation</a>
+                        <a href="#" class="footer-link">Contact</a>
+                    </div>
+                    <div class="footer-copyright">
+                        &copy; {{ now.year }} Punk Eco - Tous droits réservés
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div> <!-- Fin du conteneur principal -->
+    
+    <!-- Bouton de retour en haut de page -->
+    <button class="scroll-to-top" aria-label="Retour en haut de la page">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+</body>
+</html>

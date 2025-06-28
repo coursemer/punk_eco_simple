@@ -1,0 +1,260 @@
+{% extends "base.html" %}
+
+{% block title %}Accueil - Punk Eco{% endblock %}
+
+{% block content %}
+<!-- Terminal d'introduction -->
+<div class="terminal slide-in">
+    <div class="terminal-header">
+        <div class="terminal-buttons">
+            <div class="terminal-button btn-close"></div>
+            <div class="terminal-button btn-minimize"></div>
+            <div class="terminal-button btn-maximize"></div>
+        </div>
+        <div class="terminal-title">system_init.log</div>
+    </div>
+    <div class="terminal-content">
+        <div>root@punk-eco:~$ <span class="text-cyan">welcome.sh</span></div>
+        <div class="mt-2">
+            <div class="text-gradient">
+                ██████╗ ██╗   ██╗███╗   ██╗██╗  ██╗    ███████╗ ██████╗�██████╗
+                ██╔══██╗██║   ██║████╗  ██║██║ ██╔╝    ██╔════╝██╔════╝██╔════╝
+                ██████╔╝██║   ██║██╔██╗ ██║█████╔╝     █████╗  ██║     █████╗  
+                ██╔═══╝ ██║   ██║██║╚██╗██║██╔═██╗     ██╔══╝  ██║     ██╔══╝  
+                ██║     ╚██████╔╝██║ ╚████║██║  ██╗    ██║     ╚██████╗███████╗
+                ╚═╝      ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝    ╚═╝      ╚═════╝╚══════╝
+            </div>
+            <div class="mt-3">
+                <p>Bienvenue sur <span class="text-cyan">Punk Eco</span>, votre tableau de bord économique intelligent.</p>
+                <p>Chargement des modules...</p>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 100%"></div>
+                </div>
+                <p class="mt-2">Système prêt. Tapez <span class="text-yellow">help</span> pour voir les commandes disponibles.</p>
+            </div>
+        </div>
+        <div class="terminal-prompt">
+            <span>root@punk-eco:~$</span>
+            <span class="cursor">_</span>
+        </div>
+    </div>
+</div>
+
+<!-- Cartes de statistiques -->
+<div class="dashboard-grid mt-4">
+    <div class="card stat-card">
+        <div class="card-header">
+            <i class="fas fa-chart-line"></i>
+            <h3>Indicateurs Clés</h3>
+        </div>
+        <div class="card-body">
+            <div class="stat-item">
+                <span class="stat-label">PIB (T1 2025)</span>
+                <span class="stat-value text-success">+3.2%</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Inflation</span>
+                <span class="stat-value text-warning">+2.1%</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Taux de chômage</span>
+                <span class="stat-value text-error">9.8%</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card chart-card">
+        <div class="card-header">
+            <i class="fas fa-chart-bar"></i>
+            <h3>Évolution du PIB</h3>
+        </div>
+        <div class="card-body">
+            <canvas id="gdpChart"></canvas>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <i class="fas fa-bolt"></i>
+            <h3>Production d'Énergie</h3>
+        </div>
+        <div class="card-body">
+            <div class="energy-mix">
+                <div class="energy-source">
+                    <div class="energy-icon solar">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <div class="energy-info">
+                        <span class="energy-label">Solaire</span>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 35%"></div>
+                        </div>
+                        <span class="energy-value">35%</span>
+                    </div>
+                </div>
+                <div class="energy-source">
+                    <div class="energy-icon wind">
+                        <i class="fas fa-wind"></i>
+                    </div>
+                    <div class="energy-info">
+                        <span class="energy-label">Éolien</span>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 25%"></div>
+                        </div>
+                        <span class="energy-value">25%</span>
+                    </div>
+                </div>
+                <div class="energy-source">
+                    <div class="energy-icon hydro">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <div class="energy-info">
+                        <span class="energy-label">Hydraulique</span>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 20%"></div>
+                        </div>
+                        <span class="energy-value">20%</span>
+                    </div>
+                </div>
+                <div class="energy-source">
+                    <div class="energy-icon fossil">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="energy-info">
+                        <span class="energy-label">Fossile</span>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 20%"></div>
+                        </div>
+                        <span class="energy-value">20%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <i class="fas fa-exchange-alt"></i>
+            <h3>Commerce Extérieur</h3>
+        </div>
+        <div class="card-body">
+            <div class="trade-stats">
+                <div class="trade-export">
+                    <h4>Exportations</h4>
+                    <div class="trade-value text-success">+$12.4M</div>
+                    <small class="text-muted">+2.3% vs mois dernier</small>
+                </div>
+                <div class="trade-import">
+                    <h4>Importations</h4>
+                    <div class="trade-value text-error">-$15.8M</div>
+                    <small class="text-muted">+1.1% vs mois dernier</small>
+                </div>
+            </div>
+            <div class="trade-balance">
+                <span>Balance commerciale:</span>
+                <span class="text-warning">-$3.4M</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Dernières actualités -->
+<div class="card mt-4">
+    <div class="card-header">
+        <i class="fas fa-newspaper"></i>
+        <h3>Dernières Actualités Économiques</h3>
+    </div>
+    <div class="card-body">
+        <div class="news-list">
+            <div class="news-item">
+                <div class="news-date">28/06/2025</div>
+                <div class="news-content">
+                    <h4>Croissance économique au-dessus des attentes pour le premier semestre 2025</h4>
+                    <p>Le PIB a augmenté de 3,2% au premier trimestre, dépassant les prévisions des économistes.</p>
+                </div>
+                <div class="news-actions">
+                    <button class="btn btn-sm btn-outline">Lire plus</button>
+                </div>
+            </div>
+            <div class="news-item">
+                <div class="news-date">25/06/2025</div>
+                <div class="news-content">
+                    <h4>Investissement record dans les énergies renouvelables</h4>
+                    <p>+45% d'investissements dans le solaire et l'éolien par rapport à l'année dernière.</p>
+                </div>
+                <div class="news-actions">
+                    <button class="btn btn-sm btn-outline">Lire plus</button>
+                </div>
+            </div>
+            <div class="news-item">
+                <div class="news-date">22/06/2025</div>
+                <div class="news-content">
+                    <h4>Nouveaux accords commerciaux signés avec l'UE</h4>
+                    <p>Signature de plusieurs accords visant à renforcer les échanges commerciaux avec l'Union Européenne.</p>
+                </div>
+                <div class="news-actions">
+                    <button class="btn btn-sm btn-outline">Lire plus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Script pour initialiser les graphiques -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Graphique d'évolution du PIB
+    const gdpCtx = document.getElementById('gdpChart').getContext('2d');
+    const gdpChart = new Chart(gdpCtx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'],
+            datasets: [{
+                label: 'PIB (en milliards $)',
+                data: [120, 122, 124, 123, 125, 128],
+                borderColor: 'rgba(0, 255, 200, 0.8)',
+                backgroundColor: 'rgba(0, 255, 200, 0.1)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.05)'
+                    },
+                    ticks: {
+                        color: 'rgba(255, 255, 255, 0.7)'
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        color: 'rgba(255, 255, 255, 0.7)'
+                    }
+                }
+            }
+        }
+    });
+    
+    // Animation du curseur du terminal
+    const cursor = document.querySelector('.terminal-prompt .cursor');
+    if (cursor) {
+        setInterval(() => {
+            cursor.style.visibility = cursor.style.visibility === 'hidden' ? 'visible' : 'hidden';
+        }, 500);
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,312 @@
+/* Styles pour la vue en étoile du schéma */
+
+/* Conteneur principal */
+.star-schema-container {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    min-height: 600px;
+    background: var(--bg-dark);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Panneau de détails */
+.node-details {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    background: var(--bg-darker);
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    transform: translateX(120%);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.node-details.visible {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.node-details .node-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-darker);
+    border-radius: 8px 8px 0 0;
+}
+
+.node-details .node-header h3 {
+    margin: 0 0 5px;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+}
+
+.node-details .node-type {
+    display: inline-block;
+    padding: 3px 8px;
+    background: var(--accent-cyan);
+    color: var(--bg-darker);
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.node-details .node-body {
+    padding: 20px;
+}
+
+.node-details .node-body p {
+    margin: 0 0 15px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.node-stats {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.stat {
+    text-align: center;
+    padding: 10px 15px;
+    background: var(--bg-darker);
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    min-width: 80px;
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--accent-cyan);
+    margin-bottom: 3px;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Styles pour les nœuds du réseau */
+.vis-network:focus {
+    outline: none;
+}
+
+.vis-network .vis-node {
+    border: 2px solid var(--accent-cyan);
+    border-radius: 8px;
+    background: rgba(0, 255, 200, 0.1);
+    transition: all 0.2s ease;
+}
+
+.vis-network .vis-node.vis-selected {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 15px rgba(0, 255, 200, 0.5);
+}
+
+.vis-network .vis-node.vis-hovering {
+    background: rgba(0, 255, 200, 0.15);
+    box-shadow: 0 0 10px rgba(0, 255, 200, 0.3);
+}
+
+/* Styles pour les arêtes */
+.vis-network .vis-edge {
+    stroke: rgba(0, 255, 200, 0.6);
+    stroke-width: 2px;
+}
+
+.vis-network .vis-edge.vis-hovering {
+    stroke: var(--accent-cyan);
+    stroke-width: 3px;
+}
+
+.vis-network .vis-edge.vis-selected {
+    stroke: var(--accent-cyan);
+    stroke-width: 3px;
+    stroke-dasharray: 5, 5;
+}
+
+/* Légende */
+.schema-legend {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: var(--bg-darker);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    max-width: 250px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    margin-right: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.legend-color.fact {
+    background: rgba(0, 255, 200, 0.1);
+    border-color: var(--accent-cyan);
+}
+
+.legend-color.dimension {
+    background: rgba(126, 87, 194, 0.1);
+    border-color: var(--accent-purple);
+}
+
+.legend-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* Boutons de contrôle */
+.schema-controls {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    gap: 10px;
+    z-index: 100;
+}
+
+.control-btn {
+    background: var(--bg-darker);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.control-btn:hover {
+    background: var(--accent-cyan);
+    color: var(--bg-darker);
+    border-color: var(--accent-cyan);
+}
+
+.control-btn i {
+    font-size: 1rem;
+}
+
+/* Animation de chargement */
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    transition: opacity 0.3s ease;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    border-top-color: var(--accent-cyan);
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Mode sombre/clair */
+@media (prefers-color-scheme: light) {
+    .star-schema-container {
+        background: #ffffff;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    .node-details,
+    .schema-legend,
+    .control-btn {
+        background: #ffffff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    }
+    
+    .node-details .node-header {
+        background: #f8f9fa;
+    }
+    
+    .stat {
+        background: #f8f9fa;
+    }
+}
+
+/* Réactivité */
+@media (max-width: 992px) {
+    .node-details {
+        position: relative;
+        top: auto;
+        right: auto;
+        width: 100%;
+        margin: 20px 0;
+        transform: none;
+        opacity: 1;
+        max-height: none;
+    }
+    
+    .schema-legend {
+        bottom: 10px;
+        left: 10px;
+        padding: 10px;
+        max-width: 200px;
+    }
+    
+    .legend-label {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .star-schema-container {
+        height: 500px;
+    }
+    
+    .schema-controls {
+        top: 10px;
+        left: 10px;
+    }
+    
+    .control-btn {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .schema-legend {
+        display: none; /* Cacher la légende sur mobile pour gagner de l'espace */
+    }
+}

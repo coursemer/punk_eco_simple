@@ -1,0 +1,498 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;700&family=Noto+Sans+JP:wght@400;700&family=Orbitron:wght@400;700;900&display=swap');
+
+:root {
+    --primary-green: #00ff41;
+    --secondary-green: #008f11;
+    --dark-bg: #0a0a0a;
+    --code-bg: #111;
+    --text-green: #00ff88;
+    --accent-cyan: #00ffff;
+    --warning-red: #ff0040;
+    --gold: #ffd700;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Fira Code', monospace;
+    background: var(--dark-bg);
+    color: var(--primary-green);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Orbitron', monospace;
+    margin-bottom: 1rem;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+a {
+    color: var(--accent-cyan);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--primary-green);
+}
+
+/* Header */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(10, 10, 10, 0.95);
+    border-bottom: 1px solid var(--primary-green);
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+    padding: 0.5rem 0;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h1 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: var(--primary-green);
+    text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+}
+
+.project-info {
+    font-size: 0.8rem;
+    color: var(--accent-cyan);
+    margin-top: 0.2rem;
+}
+
+.main-nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 1.5rem;
+}
+
+.main-nav a {
+    color: var(--text-green);
+    text-decoration: none;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+    color: var(--primary-green);
+    background: rgba(0, 255, 65, 0.1);
+}
+
+.main-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--primary-green);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.main-nav a:hover::after,
+.main-nav a.active::after {
+    width: 80%;
+}
+
+/* Page Content */
+.page-content {
+    padding: 2rem 0;
+    position: relative;
+    z-index: 10; /* S'assurer que le contenu est au-dessus de l'effet Matrix */
+    background-color: var(--dark-bg); /* Fond solide pour éviter la transparence */
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--primary-green);
+    margin-top: 2rem;
+    background: rgba(0, 0, 0, 0.5);
+    font-size: 0.9rem;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.header .subtitle {
+    font-size: 1.2rem;
+    color: var(--text-green);
+    margin-bottom: 1rem;
+}
+
+.header .project-info {
+    font-size: 0.9rem;
+    color: var(--accent-cyan);
+}
+
+/* Terminal */
+.terminal {
+    background: var(--code-bg);
+    border: 1px solid var(--primary-green);
+    border-radius: 8px;
+    margin: 2rem 0;
+    box-shadow: 0 0 20px rgba(0,255,65,0.3);
+}
+
+.terminal-header {
+    background: linear-gradient(90deg, var(--secondary-green), var(--primary-green));
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    border-radius: 8px 8px 0 0;
+}
+
+.terminal-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.terminal-button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.btn-close { background: var(--warning-red); }
+.btn-minimize { background: #ffaa00; }
+.btn-maximize { background: var(--primary-green); }
+
+.terminal-title {
+    margin-left: 1rem;
+    font-weight: bold;
+    color: var(--dark-bg);
+}
+
+.terminal-content {
+    padding: 1.5rem;
+    font-family: 'Fira Code', monospace;
+}
+
+/* Sections */
+.section {
+    margin: 3rem 0;
+    padding: 2rem;
+    background: rgba(0,255,65,0.05);
+    border-left: 4px solid var(--primary-green);
+    position: relative;
+}
+
+.section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary-green), transparent);
+    animation: scan 3s infinite;
+}
+
+@keyframes scan {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}
+
+.section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--accent-cyan);
+    text-transform: uppercase;
+}
+
+.section h3 {
+    font-size: 1.3rem;
+    margin: 1.5rem 0 1rem 0;
+    color: var(--text-green);
+}
+
+/* Code Blocks */
+.code-block {
+    background: var(--code-bg);
+    border: 1px solid var(--secondary-green);
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 4px;
+    overflow-x: auto;
+    position: relative;
+}
+
+.code-block::before {
+    content: '> executing...';
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    font-size: 0.7rem;
+    color: var(--accent-cyan);
+    opacity: 0.7;
+}
+
+/* SQL Editor */
+.sql-editor {
+    background: var(--code-bg);
+    border: 1px solid var(--primary-green);
+    border-radius: 8px;
+    margin: 2rem 0;
+    overflow: hidden;
+}
+
+.sql-header {
+    background: var(--secondary-green);
+    padding: 0.5rem 1rem;
+    color: var(--dark-bg);
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sql-textarea {
+    width: 100%;
+    height: 200px;
+    background: var(--code-bg);
+    color: var(--primary-green);
+    border: none;
+    padding: 1rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    resize: vertical;
+    outline: none;
+}
+
+.sql-button {
+    background: var(--primary-green);
+    color: var(--dark-bg);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Fira Code', monospace;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.sql-button:hover {
+    background: var(--text-green);
+    box-shadow: 0 0 10px rgba(0,255,65,0.5);
+}
+
+.sql-results {
+    padding: 1rem;
+    border-top: 1px solid var(--secondary-green);
+    background: rgba(0,255,65,0.05);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 2rem 0;
+    border-top: 2px solid var(--primary-green);
+    margin-top: 3rem;
+    background: linear-gradient(45deg, transparent, rgba(0,255,65,0.1), transparent);
+}
+
+/* Animations */
+@keyframes glitch {
+    0%, 90%, 100% {
+        text-shadow: 
+            -2px 0 var(--warning-red),
+            2px 0 var(--accent-cyan);
+    }
+    50% {
+        text-shadow: 
+            2px 0 var(--warning-red),
+            -2px 0 var(--accent-cyan);
+    }
+}
+
+.glitch {
+    position: relative;
+    color: var(--primary-green);
+    animation: glitch 2s infinite;
+}
+
+.loading {
+    display: inline-block;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* Conteneur pour l'effet Matrix */
+.matrix-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Reste en arrière-plan */
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* Matrix Rain Effect */
+.matrix-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.03; /* Très transparent */
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.matrix-bg .matrix-char {
+    position: absolute;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 16px;
+    color: var(--primary-green);
+    text-shadow: 0 0 3px rgba(0, 255, 65, 0.5);
+    line-height: 1.2;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    letter-spacing: -4px;
+    white-space: nowrap;
+    animation: matrix-fall linear infinite;
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+/* Contenu principal */
+.page-wrapper {
+    position: relative;
+    z-index: 2; /* Au-dessus de l'effet Matrix */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-content {
+    flex: 1;
+    background-color: var(--bg-dark);
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes matrix-fall {
+    0% {
+        transform: translateY(-100vh);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+
+/* Charts */
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.chart-container {
+    background: var(--code-bg);
+    border: 1px solid var(--primary-green);
+    border-radius: 8px;
+    padding: 1rem;
+    height: 350px; /* Hauteur fixe pour tous les graphiques */
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-container h3 {
+    font-size: 1.1rem;
+    margin: 0 0 1rem 0;
+    color: var(--accent-cyan);
+    text-align: center;
+}
+
+.chart-container canvas {
+    flex: 1;
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 280px;
+}
+
+/* Ajustements pour les petits écrans */
+@media (max-width: 768px) {
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .chart-container {
+        height: 300px;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 1rem;
+    }
+    
+    .header h1 {
+        font-size: 2rem;
+    }
+    
+    .section {
+        padding: 1.5rem 1rem;
+    }
+    
+    .sql-textarea {
+        height: 300px;
+    }
+}

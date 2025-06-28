@@ -1,0 +1,326 @@
+/* Styles spécifiques à la page de schéma */
+
+/* Conteneur principal */
+.schema-content {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 200px);
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Onglets */
+.schema-tabs {
+    display: flex;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem 0;
+    background: var(--bg-tertiary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.schema-tab {
+    padding: 0.75rem 1.25rem;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: var(--text-secondary);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+    border-radius: 6px 6px 0 0;
+}
+
+.schema-tab:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+}
+
+.schema-tab.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+    background: var(--bg-primary);
+}
+
+/* Contenu des onglets */
+.tab-content {
+    display: none;
+    flex: 1;
+    overflow: hidden;
+    padding: 0;
+}
+
+.tab-content.active {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Vue en étoile */
+.star-schema-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+}
+
+.network-container {
+    flex: 1;
+    border: 1px solid var(--border-color);
+    background: var(--bg-primary);
+    border-radius: 8px;
+    margin: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Contrôles du réseau */
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-tertiary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.control-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.control-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.zoom-level {
+    margin-left: auto;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    padding: 0 0.5rem;
+}
+
+/* Détails du nœud */
+.node-details {
+    position: absolute;
+    right: 2rem;
+    top: 2rem;
+    width: 350px;
+    max-height: 80vh;
+    background: var(--bg-primary);
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    z-index: 1000;
+    transform: translateX(120%);
+    transition: transform 0.3s ease;
+}
+
+.node-details.visible {
+    transform: translateX(0);
+}
+
+.node-details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    background: var(--bg-tertiary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.node-details-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
+
+.close-details {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    line-height: 1;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+
+.close-details:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+.node-details-content {
+    padding: 1.25rem;
+    max-height: calc(80vh - 60px);
+    overflow-y: auto;
+}
+
+.node-details-content .hint {
+    color: var(--text-tertiary);
+    font-style: italic;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+/* Vue des tables */
+.tables-list {
+    padding: 1.5rem;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.table-details {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+}
+
+.table-details h3, .table-details h4 {
+    margin: 0;
+    padding: 1rem 1.25rem;
+    background: var(--bg-tertiary);
+    border-bottom: 1px solid var(--border-color);
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
+
+.table-details p {
+    padding: 0.75rem 1.25rem;
+    margin: 0;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.table-schema {
+    overflow-x: auto;
+}
+
+.table-schema table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-schema th, 
+.table-schema td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.table-schema th {
+    background: var(--bg-tertiary);
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-secondary);
+}
+
+.table-schema tr:last-child td {
+    border-bottom: none;
+}
+
+.table-schema tr:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/* Grille des tables */
+.tables-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 0 1.5rem 1.5rem;
+}
+
+.tables-grid .table-details {
+    margin-bottom: 0;
+}
+
+.columns-list {
+    list-style: none;
+    padding: 0.5rem 1.25rem 1.25rem;
+    margin: 0;
+}
+
+.columns-list li {
+    padding: 0.35rem 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.columns-list li:last-child {
+    border-bottom: none;
+}
+
+.columns-list strong {
+    color: var(--text-primary);
+    font-family: 'Fira Code', monospace;
+    font-size: 0.85rem;
+}
+
+/* Vue des relations */
+#relationships-view {
+    padding: 0;
+}
+
+/* Documentation */
+.documentation {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--bg-primary);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.documentation h2 {
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+    color: var(--text-primary);
+    font-size: 1.25rem;
+}
+
+.documentation p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .schema-tabs {
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+    }
+    
+    .tables-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .node-details {
+        position: fixed;
+        right: 1rem;
+        left: 1rem;
+        width: auto;
+        max-height: 50vh;
+    }
+}

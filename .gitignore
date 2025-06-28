@@ -1,0 +1,158 @@
+# =========================================
+# Environnements de développement
+# =========================================
+
+# Environnements virtuels Python
+venv/
+.env
+.venv/
+env/
+ENV/
+.env.*
+!.env.example
+
+# Fichiers de configuration locaux
+local_settings.py
+local_settings/*
+
+# Fichiers de cache et de session
+.cache/
+.cache/*
+__pycache__/
+
+# Fichiers de couverture de test
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Fichiers de documentation
+docs/_build/
+
+# Fichiers de déploiement
+.deploy
+
+# =========================================
+# Fichiers Python
+# =========================================
+# Fichiers compilés
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Fichiers de cache
+.pytest_cache/
+.mypy_cache/
+
+# =========================================
+# Base de données
+# =========================================
+# Fichiers de base de données SQLite
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+
+# Dossier d'instance (contient la base de données de développement)
+instance/
+!instance/.gitkeep
+
+# Migrations (à versionner en production, mais pas les migrations générées localement)
+# migrations/versions/
+
+# =========================================
+# Journaux et fichiers de débogage
+# =========================================
+*.log
+logs/
+
+# =========================================
+# Éditeurs et IDE
+# =========================================
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# PyCharm
+.idea/
+.idea/*
+.idea_modules/
+
+# Vim
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# =========================================
+# Dépendances et packages
+# =========================================
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python
+.python-version
+
+# =========================================
+# Fichiers temporaires
+# =========================================
+*.tmp
+*.bak
+*.swp
+*~
+
+# Fichiers de sauvegarde
+*.bak
+*.swp
+*~
+.~lock.*
+
+# Fichiers de système d'exploitation
+.DS_Store
+Thumbs.db
+
+# Fichiers de cache
+.cache/
+.idea/
+*.iml
+
+# Fichiers de test
+.pytest_cache/
+.mypy_cache/
+
+# Système d'exploitation
+.DS_Store
+Thumbs.db

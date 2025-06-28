@@ -1,0 +1,27 @@
+{% extends "layout/base.html" %}
+
+{% block title %}Ressource supprimée{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <div class="error-template">
+                <h1>Ressource supprimée</h1>
+                <h2>410 Contenu supprimé</h2>
+                <div class="error-details mt-3">
+                    La ressource que vous recherchez a été définitivement supprimée de nos serveurs.
+                </div>
+                <div class="error-actions mt-4">
+                    <a href="{{ url_for('main.index') }}" class="btn btn-primary btn-lg me-2">
+                        <i class="fas fa-home"></i> Page d'accueil
+                    </a>
+                    <a href="{{ url_for('main.contact') }}" class="btn btn-outline-secondary btn-lg">
+                        <i class="fas fa-envelope"></i> Contactez-nous
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

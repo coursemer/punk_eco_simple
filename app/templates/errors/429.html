@@ -1,0 +1,27 @@
+{% extends "layout/base.html" %}
+
+{% block title %}Trop de requêtes{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <div class="error-template">
+                <h1>Oups !</h1>
+                <h2>429 Trop de requêtes</h2>
+                <div class="error-details mt-3">
+                    Vous avez dépassé le nombre maximal de requêtes autorisées. Veuillez patienter quelques instants avant de réessayer.
+                </div>
+                <div class="error-actions mt-4">
+                    <a href="{{ url_for('main.index') }}" class="btn btn-primary btn-lg me-2">
+                        <i class="fas fa-home"></i> Page d'accueil
+                    </a>
+                    <button onclick="window.history.back();" class="btn btn-outline-secondary btn-lg">
+                        <i class="fas fa-arrow-left"></i> Page précédente
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

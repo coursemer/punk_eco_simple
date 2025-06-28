@@ -1,0 +1,165 @@
+{% extends "layout/base.html" %}
+
+{% block title %}Tableau de Bord Économie Marocaine{% endblock %}
+
+{% block head %}
+{{ super() }}
+<!-- Intégration des fichiers CSS spécifiques au tableau de bord -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/ma_economy.css') }}">
+<!-- Intégration des dépendances JavaScript nécessaires pour Dash -->
+{{ app.dash_injector.scripts | safe }}
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="display-4">Tableau de Bord Économique Marocain</h1>
+            <p class="lead">Visualisation des principaux indicateurs économiques du Maroc</p>
+            <div class="last-update">
+                <small class="text-muted">
+                    <i class="fas fa-sync-alt"></i> Dernière mise à jour: 
+                    <span id="last-updated">Chargement...</span>
+                </small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section des indicateurs clés -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Indicateurs Clés</h5>
+                </div>
+                <div class="card-body">
+                    <div id="key-indicators" class="row">
+                        <!-- Les indicateurs clés seront injectés ici par Dash -->
+                        <div class="col-12 text-center py-5">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="sr-only">Chargement des indicateurs...</span>
+                            </div>
+                            <p class="mt-2">Chargement des indicateurs économiques...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section des graphiques -->
+    <div class="row mb-4">
+        <div class="col-lg-8">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Évolution du PIB et de l'Inflation</h5>
+                </div>
+                <div class="card-body">
+                    <div id="gdp-inflation-chart">
+                        <!-- Le graphique sera injecté ici par Dash -->
+                        <div class="text-center py-5">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="sr-only">Chargement du graphique...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Taux de Chômage</h5>
+                </div>
+                <div class="card-body">
+                    <div id="unemployment-chart">
+                        <!-- Le graphique sera injecté ici par Dash -->
+                        <div class="text-center py-5">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="sr-only">Chargement du graphique...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section du tableau des données -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Données Détail</h5>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-light" id="export-csv">
+                            <i class="fas fa-file-csv"></i> Exporter en CSV
+                        </button>
+                        <button type="button" class="btn btn-sm btn-light" id="export-excel">
+                            <i class="fas fa-file-excel"></i> Exporter en Excel
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <div id="indicators-table">
+                            <!-- Le tableau sera injecté ici par Dash -->
+                            <div class="text-center py-5">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="sr-only">Chargement des données...</span>
+                                </div>
+                                <p class="mt-2">Chargement des données économiques...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<!-- Intégration du JavaScript spécifique au tableau de bord -->
+<script>
+// Mettre à jour l'horodatage de la dernière mise à jour
+function updateLastUpdated() {
+    const now = new Date();
+    const options = { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric',
+        hour: '2-digit', 
+        minute: '2-digit',
+        second: '2-digit',
+        timeZoneName: 'short'
+    };
+    document.getElementById('last-updated').textContent = now.toLocaleString('fr-FR', options);
+}
+
+// Mettre à jour l'horodatage toutes les minutes
+updateLastUpdated();
+setInterval(updateLastUpdated, 60000);
+
+// Gestion des exports
+// Ces fonctions seront implémentées avec des appels API réels
+function exportToCSV() {
+    // Implémentation de l'export CSV
+    console.log('Export CSV en cours...');
+    // TODO: Implémenter l'export CSV
+}
+
+function exportToExcel() {
+    // Implémentation de l'export Excel
+    console.log('Export Excel en cours...');
+    // TODO: Implémenter l'export Excel
+}
+
+// Ajout des écouteurs d'événements
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('export-csv').addEventListener('click', exportToCSV);
+    document.getElementById('export-excel').addEventListener('click', exportToExcel);
+});
+</script>
+{% endblock %}

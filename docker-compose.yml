@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: punk_eco_web
+    command: gunicorn --bind 0.0.0.0:5000 --reload app.wsgi:app
+    volumes:
+      - .:/app
+      - ./instance:/app/instance
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    environment:
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+    depends_on:
+      - db
+    restart: unless-stopped
+    networks:
+      - punk_eco_network
+
+  db:
+    image: postgres:13-alpine
+    container_name: punk_eco_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${DB_USER:-postgres}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
+      - POSTGRES_DB=${DB_NAME:-punk_eco}
+    ports:
+      - "5432:5432"
+    networks:
+      - punk_eco_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-punk_eco}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:6-alpine
+    container_name: punk_eco_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - punk_eco_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 30s
+      retries: 3
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: punk_eco_mailhog
+    ports:
+      - "1025:1025"  # SMTP server
+      - "8025:8025"  # Web UI
+    networks:
+      - punk_eco_network
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  punk_eco_network:
+    driver: bridge
