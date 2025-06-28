@@ -3,10 +3,9 @@ Module pour la version 1 de l'API.
 Contient les endpoints principaux de l'API v1.
 """
 
-from flask import jsonify, current_app, request
+from flask import jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from ...models.user import User
-from ...extensions import db
 
 # Import des routes d'API
 from . import auth, users, resources  # noqa: F401

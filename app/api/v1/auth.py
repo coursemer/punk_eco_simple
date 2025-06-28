@@ -11,7 +11,6 @@ from flask_jwt_extended import (
     get_jwt_identity,
     get_jwt
 )
-from datetime import timedelta
 import re
 from ...models.user import User
 from ...extensions import db

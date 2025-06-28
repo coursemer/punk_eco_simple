@@ -3,7 +3,6 @@ Module de gestion des commandes en ligne de commande pour Punk Eco.
 """
 
 import click
-from flask import current_app
 from flask.cli import with_appcontext
 from .extensions import db
 from .models.user import User

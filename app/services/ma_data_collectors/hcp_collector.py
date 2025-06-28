@@ -2,7 +2,6 @@ import logging
 from datetime import datetime
 from typing import Dict, Optional
 import requests
-from bs4 import BeautifulSoup
 from .base_collector import BaseCollector
 
 logger = logging.getLogger(__name__)

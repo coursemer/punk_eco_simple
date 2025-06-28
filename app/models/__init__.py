@@ -1,12 +1,6 @@
 """
 Modèles de données pour l'application Punk Eco.
 """
-
-from ..extensions import db
-
-# Import des modèles pour les rendre disponibles lors de l'import du package
-# Les imports sont effectués ici pour éviter les importations circulaires
-from .base import BaseModel
 from .user import User
 
 # Import des autres modèles
