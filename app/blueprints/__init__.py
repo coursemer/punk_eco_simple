@@ -3,8 +3,6 @@
 Ce package contient les blueprints qui organisent les routes de l'application.
 """
 
-from flask import Blueprint
-
 def register_blueprints(app):
     """Enregistre tous les blueprints avec l'application Flask.
     

@@ -4,12 +4,12 @@ Contient la factory pour créer l'application Flask.
 """
 
 import os
-from flask import Flask, jsonify, current_app
+from flask import Flask
 from flask_login import login_required, current_user
 from datetime import datetime
 
 # Importer les extensions
-from .extensions import db, migrate, login_manager, cache, mail, cors, init_extensions
+from .extensions import db, init_extensions
 
 # Importer la configuration
 from .config.settings import config

@@ -7,7 +7,6 @@ from flask import current_app
 from ..extensions import db
 from ..models.data_collection import DataCollectionRun, CollectedData
 from ..services.data_collector import DataCollector
-from ..config.settings import Config
 
 # Configuration du logging
 logger = logging.getLogger(__name__)

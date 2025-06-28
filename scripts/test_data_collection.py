@@ -6,7 +6,6 @@ Permet de déclencher manuellement la collecte de données.
 import os
 import sys
 import logging
-from datetime import datetime
 
 # Configuration du logging
 logging.basicConfig(

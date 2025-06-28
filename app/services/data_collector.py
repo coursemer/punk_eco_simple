@@ -10,7 +10,6 @@ from datetime import datetime, timedelta
 import os
 import random
 from typing import Dict, List, Any, Optional, Union
-from urllib.parse import urljoin
 
 # Configuration du logging
 logging.basicConfig(level=logging.INFO)

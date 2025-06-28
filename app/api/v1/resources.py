@@ -4,12 +4,9 @@ Contient les endpoints pour la gestion des ressources de l'application.
 """
 
 from flask import jsonify, request, current_app
-from flask_jwt_extended import jwt_required, get_jwt_identity
-from datetime import datetime
+from flask_jwt_extended import jwt_required
 import os
 from werkzeug.utils import secure_filename
-from ...models.user import User
-from ...extensions import db
 
 def init_resources_routes(api_bp):
     """Initialise les routes de gestion des ressources.

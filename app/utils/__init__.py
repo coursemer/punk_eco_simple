@@ -8,8 +8,7 @@ Ce package contient des fonctions utilitaires utilisées dans toute l'applicatio
 from .dash_utils import (
     register_dashapp,
     create_navbar,
-    create_footer,
-    create_loading_component
+    create_footer
 )
 
 __all__ = [

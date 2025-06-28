@@ -8,7 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_caching import Cache
 from flask_cors import CORS
 from flask_migrate import Migrate
-from flask_login import LoginManager, current_user
+from flask_login import LoginManager
 from flask_mail import Mail
 from flask_jwt_extended import JWTManager
 from flask_assets import Environment, Bundle
@@ -213,7 +213,7 @@ def register_blueprints(app):
     """Enregistre les blueprints de l'application."""
     from app.blueprints.main import main_bp
     from app.blueprints.auth import auth_bp
-    from app.blueprints.api import api_bp, init_app as init_api
+    from app.blueprints.api import init_app as init_api
     
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp, url_prefix='/auth')
@@ -223,9 +223,7 @@ def register_blueprints(app):
 
 def initialize_database():
     """Initialise la base de données avec des données par défaut."""
-    from app.models.user import User, Role, user_datastore
-    from app.models.ma_economy import EconomicIndicator, IndicatorMetadata
-    from app.models import ma_economy  # Pour s'assurer que les modèles sont chargés
+    from app.models.user import User, Role
     
     # Créer les tables si elles n'existent pas
     with app.app_context():

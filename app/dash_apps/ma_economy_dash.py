@@ -2,9 +2,6 @@ import dash
 from dash import dcc, html
 from dash.dependencies import Input, Output
 import plotly.graph_objects as go
-import plotly.express as px
-from flask_login import current_user
-from flask import redirect, url_for
 from datetime import datetime
 
 def init_dash(server):

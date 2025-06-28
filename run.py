@@ -4,7 +4,6 @@ Development server runner for Punk Eco application.
 """
 
 import os
-import sys
 from dotenv import load_dotenv
 
 # Load environment variables from .env file

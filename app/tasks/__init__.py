@@ -4,7 +4,6 @@ Initialisation des tâches planifiées.
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 import logging
-from ..extensions import db
 from . import data_collection_tasks
 from .ma_economic_tasks import init_scheduler as init_ma_economic_scheduler
 
