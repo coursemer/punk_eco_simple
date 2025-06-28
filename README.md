@@ -1,109 +1,110 @@
-# Punk Eco - Tableau de Bord de l'Économie Marocaine
+# Punk Eco - Moroccan Economic Dashboard
 
-[![Licence MIT](https://img.shields.io/badge/Licence-MIT-blue.svg)](LICENSE)
+[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.8+](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-Application web de suivi et d'analyse des indicateurs économiques marocains, offrant une vue d'ensemble de l'économie nationale à travers des tableaux de bord interactifs et des analyses détaillées.
+Web application for tracking and analyzing Moroccan economic indicators, providing an overview of the national economy through interactive dashboards and detailed analyses.
 
-## 🌟 Fonctionnalités
+## 🌟 Features
 
-- **Tableau de bord interactif** avec indicateurs économiques clés
-- **Authentification** des utilisateurs avec rôles (admin/utilisateur)
-- **API RESTful** pour l'accès aux données économiques
-- **Visualisations** de données avancées avec Plotly/Dash
-- **Export** des données aux formats CSV, Excel et JSON
-- **Recherche** et filtrage avancé des indicateurs
-- **Alertes** sur les variations importantes des indicateurs
+- **Interactive dashboard** with key economic indicators
+- **User authentication** with role-based access (admin/user)
+- **RESTful API** for economic data access
+- **Advanced data visualizations** with Plotly/Dash
+- **Data export** in CSV, Excel, and JSON formats
+- **Advanced search** and filtering of indicators
+- **Alerts** for significant indicator variations
 
-## 🚀 Démarrage rapide
+## 🚀 Quick Start
 
-### Prérequis
+### Prerequisites
 
-- Python 3.8 ou supérieur
-- PostgreSQL (recommandé) ou SQLite
-- Node.js et npm (pour les assets frontend)
+- Python 3.8 or higher
+- PostgreSQL (recommended) or SQLite
+- Node.js and npm (for frontend assets)
 - Git
 
 ### Installation
 
-1. **Cloner le dépôt**
+1. **Clone the repository**
    ```bash
-   git clone https://github.com/punk-eco/moroccan-economy-dashboard.git
-   cd moroccan-economy-dashboard
+   git clone https://github.com/coursemer/punk_eco_simple.git
+   cd punk_eco_simple
    ```
 
-2. **Configurer l'environnement**
+2. **Set up the environment**
    ```bash
-   # Créer et activer un environnement virtuel
+   # Create and activate a virtual environment
    python -m venv venv
    source venv/bin/activate  # Linux/Mac
    # .\venv\Scripts\activate  # Windows
    
-   # Installer les dépendances
+   # Install dependencies
    pip install -e ".[dev]"
    ```
 
-3. **Configurer les variables d'environnement**
+3. **Configure environment variables**
    ```bash
    cp .env.example .env
-   # Éditer le fichier .env selon votre configuration
+   # Edit the .env file according to your configuration
    ```
 
-4. **Initialiser la base de données**
+4. **Initialize the database**
    ```bash
    flask db upgrade
-   flask create-admin admin@example.com motdepasse
+   flask create-admin admin@example.com password
    ```
 
-5. **Lancer l'application**
+5. **Run the application**
    ```bash
-   # Mode développement
+   # Development mode
    flask run --debug
    
-   # Ou en production avec Gunicorn
+   # Or in production with Gunicorn
    gunicorn --bind 0.0.0.0:5000 wsgi:app
    ```
 
-L'application sera disponible à l'adresse : http://localhost:5000
+The application will be available at: http://localhost:5000
 
-## 🐳 Démarrage avec Docker (recommandé)
+## Getting Started with Docker (Recommended)
 
-1. **Créer un fichier .env**
+1. **Create a .env file**
    ```bash
    cp .env.example .env
    ```
 
-2. **Démarrer les conteneurs**
+2. **Start the containers**
    ```bash
    docker-compose up -d
    ```
 
-3. **Initialiser la base de données**
+3. **Initialize the database**
    ```bash
    docker-compose exec web flask db upgrade
-   docker-compose exec web flask create-admin admin@example.com motdepasse
+   docker-compose exec web flask create-admin admin@example.com password
    ```
 
-L'application sera disponible à l'adresse : http://localhost:5000
+The application will be available at: http://localhost:5000
 
-## 🛠 Commandes utiles
+## Useful Commands
 
-### Développement
+### Development
 
 ```bash
-# Formater le code
+# Format code
 make format
 
-# Lancer les tests
+# Run tests
 make test
 
-# Lancer les tests avec couverture
+# Run tests with coverage
 make test-cov
 
-# Vérifier la qualité du code
+# Check code quality
 make lint
 
+# Clean temporary files
 # Nettoyer les fichiers temporaires
 make clean
 ```
